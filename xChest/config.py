@@ -1,0 +1,2 @@
+
+PATH_TO_TRAIN_FOLDER = ""
