@@ -7,7 +7,7 @@ def list_files(folder_path) -> DataFrame:
     labels = []
     folds = os.listdir(folder_path)
 
-    for fold in folds:
+    for fold in [fold for fold in folds if not fold.startswith(".")]:
         f_path = os.path.join(folder_path , fold)
         filelists = os.listdir(f_path)
         
