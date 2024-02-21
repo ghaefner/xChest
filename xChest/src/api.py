@@ -1,5 +1,5 @@
 import os
-from config import PATH_TO_TRAIN_FOLDER
+from config import PATH_BASE, PATH_SUB
 from pandas import DataFrame, Series, concat
 
 def list_files(folder_path) -> DataFrame:
@@ -21,3 +21,7 @@ def list_files(folder_path) -> DataFrame:
 
     return df
 
+def list_subfolders(path_base=PATH_BASE, path_sub=PATH_SUB):
+
+    dfs = [list_files(path_base+suffix) for suffix in path_sub]
+    return dfs
