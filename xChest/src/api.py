@@ -24,4 +24,7 @@ def list_files(folder_path) -> DataFrame:
 def list_subfolders(path_base=PATH_BASE, path_sub=PATH_SUB):
 
     dfs = [list_files(path_base+suffix) for suffix in path_sub]
-    return dfs
+
+    dict_folder = {subfolder.rstrip("/"): df for subfolder, df in zip(path_sub, dfs)}
+
+    return dict_folder
