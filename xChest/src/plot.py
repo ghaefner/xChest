@@ -1,6 +1,6 @@
 from config import PATH_SUB, PATH_PLOT_FOLDER
 from plotly.express import histogram
-from plotly.io import write_image
+from plotly.offline import offline
 from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
@@ -29,7 +29,7 @@ def save_plot(obj, output_path="Output.png"):
             print(f"Saving plot to {PATH_PLOT_FOLDER+output_path}.")
             obj.savefig(PATH_PLOT_FOLDER+output_path, bbox_inches='tight')
         else:
-            raise ValueError("File ending does not match plotting type. Please use jpg, png or jpeg file format.")
+            raise ValueError("File ending does not match plotting type. Please use jpg, png or jpeg file format for static figure.")
     
     # For animaton object use save method
     elif isinstance(obj, FuncAnimation):
@@ -38,13 +38,15 @@ def save_plot(obj, output_path="Output.png"):
             print(f"Saving plot to {PATH_PLOT_FOLDER+output_path}.")
             obj.save(PATH_PLOT_FOLDER+output_path, writer='pillow')
         else:
-            raise ValueError("File ending does not match plotting type. Please use gif file format.")
+            raise ValueError("File ending does not match plotting type. Please use gif file format for animation plot.")
         
     # For plotly type
     elif isinstance(obj, Figure):
-        if output_path.lower().endswith(('.jpg', '.png', '.jpeg')):
+        if output_path.lower().endswith('.html'):
             print(f"Saving plot to {PATH_PLOT_FOLDER+output_path}.")
-            write_image(obj, PATH_PLOT_FOLDER+output_path)
+            offline.plot(obj, filename=PATH_PLOT_FOLDER+output_path, auto_open=False)
+        else:
+            raise ValueError("File ending does not match plotting type. Please use html file format for plotly image.")
 
     else:
         raise ValueError("Unsupported object type. Please use fig, plotly Figure or animation object.")
