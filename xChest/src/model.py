@@ -1,6 +1,7 @@
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from config import BATCH_SIZE, IMG_SHAPE
 
 def split_train_data(dict_folder):
     print("[I] Splitting train data.")
@@ -17,10 +18,6 @@ def generate_images(train_df, test_df, valid_df):
     def scalar(img):
         return img
     
-    img_size = (224 ,224)
-    batch_size = 16
-    img_shape= (img_size[0], img_size[1], 3)
-
     # Define ImageDataGenerator for data augmentation
     train_datagen = ImageDataGenerator(preprocessing_function=scalar)
     test_datagen = ImageDataGenerator(preprocessing_function=scalar)
@@ -31,24 +28,24 @@ def generate_images(train_df, test_df, valid_df):
         dataframe=train_df,
         x_col='filepaths',
         y_col='label',
-        target_size=img_shape,
-        batch_size=batch_size,
+        target_size=IMG_SHAPE,
+        batch_size=BATCH_SIZE,
         class_mode='categorical')
     
     test_gen = test_datagen.flow_from_dataframe(
         dataframe=test_df,
         x_col='filepaths',
         y_col='label',
-        target_size=img_shape,
-        batch_size=batch_size,
+        target_size=IMG_SHAPE,
+        batch_size=BATCH_SIZE,
         class_mode='categorical')
     
     valid_gen = valid_datagen.flow_from_dataframe(
         dataframe=valid_df,
         x_col='filepaths',
         y_col='label',
-        target_size=img_shape,
-        batch_size=batch_size,
+        target_size=IMG_SHAPE,
+        batch_size=BATCH_SIZE,
         class_mode='categorical')
 
     print("[I] Done.")
