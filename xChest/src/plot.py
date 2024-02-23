@@ -5,6 +5,7 @@ from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
 from numpy import argmax
+from sklearn.preprocessing import MinMaxScaler
 
 def plot_number_of_images(dict_folder, data_type="train"):
     if data_type not in [subfolder.rstrip("/") for subfolder in PATH_SUB]:
@@ -56,12 +57,21 @@ def save_plot(obj, output_path="Output.png"):
 def plot_train_xrays(train_gen):
     gen_dict = train_gen.class_indices
     classes = list(gen_dict.keys())
-    images, labels = train_gen.next()
+    images, labels = next(train_gen)
 
-    fig, axes = plt.subplots(nrows=4, ncols=4, figsize=(12, 12))
+    fig = plt.figure(figsize=(20, 20))
     
-    for i, ax in enumerate(axes.flat):
-        ax.imshow(images[i])
+    for i in range(16):
+        plt.subplot(4, 4, i+1)
+        image = images[i] / 255
+        
+        # Flatten the image
+        #flattened_image = image.reshape(-1)
+        
+        # Scale the flattened image
+        #scaled_image = MinMaxScaler().fit_transform(flattened_image.reshape(-1, 1)).reshape(image.shape)
+        
+        plt.imshow(image)
         class_index = argmax(labels[i])
         class_name = classes[class_index]
         plt.title(class_name, color='blue', fontsize=12)
