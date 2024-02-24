@@ -10,7 +10,8 @@ from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
 import time
 from pickle import dump as pkl_dump
 from pickle import load as pkl_load
-from numpy import argmax
+from datetime import datetime
+import os
 
 def split_train_data(dict_folder):
     """
@@ -150,7 +151,6 @@ def fit_model(model, train_gen, valid_gen, epochs = 10):
         History object: The training history.
     """
     print("[I] Starting Model Fitting.")
-    start_time = time.time()
     history = model.fit(
         x= train_gen, 
         epochs = epochs, 
@@ -159,8 +159,6 @@ def fit_model(model, train_gen, valid_gen, epochs = 10):
         validation_steps = None, 
         shuffle = False
     )
-    stop_time = time.time()
-    print(f'[I] Model Fitting finished in {stop_time-start_time: .2f} Seconds.')
     print("[I] Done.")
     return history
 
@@ -200,3 +198,36 @@ def extract_model_accuracy(history):
     val_loss = history.history['val_loss']
 
     return train_acc, train_loss, val_acc, val_loss
+
+
+class TaskModel:
+    def __init__(self, dict_folder):
+        self.dict_folder = dict_folder
+
+    def run(self, hyper_params=HyperPars()):
+        start_time = time.time()
+        print("[I] Starting Model Training Task.")
+
+        current_date = datetime.now().strftime('%Y%m%d')
+        model_output_name = "V"+str(current_date)+"_Model.pkl"
+
+        if os.path.exists(os.path.join(PATH_MODEL_FOLDER, model_output_name)):
+            print(f'[I] Model {model_output_name} already exists.')
+            print("[I] Loading Model History.")
+            load_history(model_output_name)
+        
+        else:
+            print(f'[I] Model {model_output_name} does not exist.')
+            df_train, df_test, df_valid = split_train_data(self.dict_folder)
+            train_gen, _, valid_gen = generate_images(df_train, df_test, df_valid)
+
+            model = initialize_model(train_gen=train_gen, hyper_params=hyper_params)
+
+            history = fit_model(model, train_gen=train_gen, valid_gen=valid_gen, epochs=5)
+            
+            print(f'[I] Saving Model History {model_output_name} to Model Folder.')
+            save_history(history=history, name=model_output_name)
+
+        stop_time = time.time()
+        print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
+
