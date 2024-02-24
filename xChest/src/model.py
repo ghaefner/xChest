@@ -6,7 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras import regularizers
-from config import BATCH_SIZE, IMG_SHAPE, HyperPars
+from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, HyperPars
 
 def split_train_data(dict_folder):
     print("[I] Splitting train data.")
@@ -33,25 +33,31 @@ def generate_images(train_df, test_df, valid_df):
         dataframe=train_df,
         x_col='filepaths',
         y_col='label',
-        target_size=IMG_SHAPE,
+        target_size=IMG_SIZE,
         batch_size=BATCH_SIZE,
-        class_mode='categorical')
+        class_mode='categorical',
+        color_mode='rgb',
+        shuffle=True)
     
     test_gen = test_datagen.flow_from_dataframe(
         dataframe=test_df,
         x_col='filepaths',
         y_col='label',
-        target_size=IMG_SHAPE,
+        target_size=IMG_SIZE,
         batch_size=BATCH_SIZE,
-        class_mode='categorical')
+        class_mode='categorical',
+        color_mode='rgb',
+        shuffle=True)
     
     valid_gen = valid_datagen.flow_from_dataframe(
         dataframe=valid_df,
         x_col='filepaths',
         y_col='label',
-        target_size=IMG_SHAPE,
+        target_size=IMG_SIZE,
         batch_size=BATCH_SIZE,
-        class_mode='categorical')
+        class_mode='categorical',
+        color_mode='rgb',
+        shuffle=True)
 
     print("[I] Done.")
    
@@ -79,6 +85,7 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
 
     dropout_layer = Dropout(rate=hyper_params.DROPOUT_RATE, seed=hyper_params.DROPOUT_SEED)
     output_layer = Dense(num_class, activation=hyper_params.FUNC_ACTIVATION_SOFTMAX)
+
 
     model = Sequential([
         base_model,
