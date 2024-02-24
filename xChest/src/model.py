@@ -10,6 +10,7 @@ from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
 import time
 from pickle import dump as pkl_dump
 from pickle import load as pkl_load
+from numpy import argmax
 
 def split_train_data(dict_folder):
     """
@@ -189,3 +190,13 @@ def load_history(filename):
     with open(filename, 'rb') as file:
         history = pkl_load(file)
     return history
+
+def extract_model_accuracy(history):
+    
+    train_acc = history.history['accuracy']
+    train_loss = history.history['loss']
+
+    val_acc = history.history['val_accuracy']
+    val_loss = history.history['val_loss']
+
+    return train_acc, train_loss, val_acc, val_loss
