@@ -252,6 +252,7 @@ def create_confusion_matrix(model, test_gen):
     
     Returns:
         cm: Confusion matrix.
+        classes: Different classes for the confusion matrix from the list of images.
     
     """
     preds = model.predict_generator(test_gen)
@@ -263,7 +264,7 @@ def create_confusion_matrix(model, test_gen):
 
     print(classification_report(test_gen.classes, y_pred, target_names=classes))
 
-    return cm
+    return cm, classes
 
 
 
