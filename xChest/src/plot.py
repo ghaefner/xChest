@@ -4,7 +4,7 @@ from plotly.offline import offline
 from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
-from numpy import argmax
+from numpy import argmax, argmin
 from sklearn.preprocessing import MinMaxScaler
 
 def plot_number_of_images(dict_folder, data_type="train"):
@@ -76,5 +76,42 @@ def plot_train_xrays(train_gen):
         class_name = classes[class_index]
         plt.title(class_name, color='blue', fontsize=12)
         plt.axis('off')
+
+    return fig
+
+
+def plot_model_accuracy(train_loss, train_acc, val_loss, val_acc):
+
+    val_lowest = val_loss[argmax(val_loss)]
+    val_highest = val_acc[argmax(val_acc)]
+
+    epochs = [i+1 for i in range(len(train_acc))]
+
+    index_loss = argmin(val_loss)
+    index_acc = argmax(val_acc)
+
+    loss_label = f'Best Epochs = {str(index_loss+1)}.'
+    acc_label = f'Best Epochs = {str(index_acc+1)}.'
+
+    fig, axes = plt.subplots(1, 2, figsize=(20, 8))
+    plt.style.use('fivethirtyeight')
+
+    axes[0].plot(epochs, train_loss, 'r', label='Training Loss')
+    axes[0].plot(epochs, val_loss, 'g', label='Validation Loss')
+    axes[0].scatter(index_loss + 1, val_lowest, s=150, c='blue', label=loss_label)
+    axes[0].set_title('Training and Validation Loss')
+    axes[0].set_xlabel('Epochs')
+    axes[0].set_ylabel('Loss')
+    axes[0].legend()
+
+    axes[1].plot(epochs, train_acc, 'r', label='Training Accuracy')
+    axes[1].plot(epochs, val_acc, 'g', label='Validation Accuracy')
+    axes[1].scatter(index_acc + 1, val_highest, s=150, c='blue', label=acc_label)
+    axes[1].set_title('Training and Validation Accuracy')
+    axes[1].set_xlabel('Epochs')
+    axes[1].set_ylabel('Accuracy')
+    axes[1].legend()
+
+    plt.tight_layout()
 
     return fig
