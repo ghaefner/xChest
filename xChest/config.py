@@ -1,6 +1,7 @@
 
 PATH_BASE = "D:/Download/chest_xray/"
 PATH_PLOT_FOLDER = "xChest/plots/"
+PATH_MODEL_FOLDER = "xChest/models/"
 PATH_SUB = ["train/", "test/", "val/"]
 
 IMG_SIZE = (244,244)
