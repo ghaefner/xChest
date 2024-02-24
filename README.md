@@ -96,20 +96,16 @@ The model is compiled and ready for training with the specified hyperparameters.
 
 
 ### Layer Shape 
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
-┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
-│ efficientnetb3 (Functional)          │ (None, 1536)                │      10,783,535 │
-├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
-│ batch_normalization                  │ (None, 1536)                │           6,144 │
-│ (BatchNormalization)                 │                             │                 │
-├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
-│ dense (Dense)                        │ (None, 256)                 │         393,472 │
-├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
-│ dropout (Dropout)                    │ (None, 256)                 │               0 │
-├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
-│ dense_1 (Dense)                      │ (None, 2)                   │             514 │
-└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
- Total params: 33,370,247 (127.30 MB)
- Trainable params: 11,093,290 (42.32 MB)
- Non-trainable params: 90,375 (353.03 KB)
+
+| Layer (type)                  | Output Shape | Param #      |
+| ----------------------------- | ------------ | ------------ |
+| efficientnetb3 (Functional)   | (None, 1536) | 10,783,535   |
+| batch_normalization           | (None, 1536) | 6,144        |
+| (BatchNormalization)          |              |              |
+| dense (Dense)                 | (None, 256)  | 393,472      |
+| dropout (Dropout)             | (None, 256)  | 0            |
+| dense_1 (Dense)               | (None, 2)    | 514          |
+
+ - Total params: 33,370,247 (127.30 MB)
+ - Trainable params: 11,093,290 (42.32 MB)
+ - Non-trainable params: 90,375 (353.03 KB)
