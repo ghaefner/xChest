@@ -51,6 +51,7 @@ Ensure you have the following Python packages installed:
 
 Make sure the project folder has the following structure:
 
+```plaintext
 xChest/
 |-- data/
 |-- models/
