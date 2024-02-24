@@ -1,6 +1,6 @@
 import itertools
 
-from numpy import argmax, argmin
+from numpy import argmax, argmin, arange
 
 import matplotlib.pyplot as plt
 from plotly.express import histogram
@@ -69,12 +69,6 @@ def plot_train_xrays(train_gen):
         plt.subplot(4, 4, i+1)
         image = images[i] / 255
         
-        # Flatten the image
-        #flattened_image = image.reshape(-1)
-        
-        # Scale the flattened image
-        #scaled_image = MinMaxScaler().fit_transform(flattened_image.reshape(-1, 1)).reshape(image.shape)
-        
         plt.imshow(image)
         class_index = argmax(labels[i])
         class_name = classes[class_index]
@@ -126,7 +120,7 @@ def plot_confusion_matrix(cm, classes):
     plt.title('Confusion Matrix')
     plt.colorbar()
 
-    tick_marks = np.arange(len(classes))
+    tick_marks = arange(len(classes))
     plt.xticks(tick_marks, classes, rotation=45)
     plt.yticks(tick_marks, classes)
 
