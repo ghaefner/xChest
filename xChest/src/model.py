@@ -191,6 +191,15 @@ def load_history(filename):
     return history
 
 def extract_model_accuracy(history):
+    """
+    Extract model accuracy from saved model history.
+    
+    Parameters:
+        history (model.history): The name of the file containing the saved history.
+    
+    Returns:
+        tuple: Training accuracy, loss and validation accuracy, loss.
+    """
     
     train_acc = history.history['accuracy']
     train_loss = history.history['loss']
@@ -199,6 +208,36 @@ def extract_model_accuracy(history):
     val_loss = history.history['val_loss']
 
     return train_acc, train_loss, val_acc, val_loss
+
+def evaluate_model(model,train_gen, test_gen, valid_gen):
+    """
+    Evaluate model on generated image sets.
+    
+    Parameters:
+        model: The name of the  model.
+        train_gen: Generated training images.
+        test_gen: Generated test images.
+        valid_gen: Generated validation images.
+    
+    Returns:
+        None: Only prints model scores.
+    """
+    
+    train_score = model.evaluate(train_gen, steps=16, verbose=1)
+    test_score = model.evaluate(test_gen, steps=16, verbose=1)
+    valid_score = model.evaluate(valid_gen, steps=16, verbose=1)
+
+    print("[I] Model Evaluation.")
+    print('-' * 20)
+    print("[I] Train Loss: ", train_score[0])
+    print("[I] Train Accuracy: ", train_score[1])
+    print('-' * 20)
+    print("[I] Validation Loss: ", valid_score[0])
+    print("[I] Validation Accuracy: ", valid_score[1])
+    print('-' * 20)
+    print("[I] Test Loss: ", test_score[0])
+    print("[I] Test Accuracy: ", test_score[1])
+    print('-' * 20)
 
 
 class TaskModel:
