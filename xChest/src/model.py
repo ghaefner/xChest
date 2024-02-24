@@ -4,12 +4,14 @@ import time
 
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras import regularizers
 from pickle import dump as pkl_dump, load as pkl_load
+from numpy import argmax
 
 from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
 
@@ -222,7 +224,7 @@ def evaluate_model(model,train_gen, test_gen, valid_gen):
     Returns:
         None: Only prints model scores.
     """
-    
+
     train_score = model.evaluate(train_gen, steps=16, verbose=1)
     test_score = model.evaluate(test_gen, steps=16, verbose=1)
     valid_score = model.evaluate(valid_gen, steps=16, verbose=1)
@@ -238,6 +240,31 @@ def evaluate_model(model,train_gen, test_gen, valid_gen):
     print("[I] Test Loss: ", test_score[0])
     print("[I] Test Accuracy: ", test_score[1])
     print('-' * 20)
+
+
+def create_confusion_matrix(model, test_gen):
+    """
+    Create a confusion matrix from test images and prints the classification report.
+    
+    Parameters:
+        model: The name of the  model.
+        test_gen: Generated test images.
+    
+    Returns:
+        cm: Confusion matrix.
+    
+    """
+    preds = model.predict_generator(test_gen)
+    y_pred = argmax(preds, axis=1)
+
+    g_dict = test_gen.class_indices
+    classes = list(g_dict.keys())
+    cm = confusion_matrix(y_true=test_gen.classes, y_pred=y_pred)
+
+    print(classification_report(test_gen.classes, y_pred, target_names=classes))
+
+    return cm
+
 
 
 class TaskModel:
