@@ -100,3 +100,16 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
     print("[I] Done.")
 
     return model
+
+
+def fit_model(model, train_gen, valid_gen, epochs = 10):
+    history = model.fit(
+        x= train_gen, 
+        epochs = epochs, 
+        verbose = 1, 
+        validation_data = valid_gen,
+        validation_steps = None, 
+        shuffle = False
+    )
+
+    return history
