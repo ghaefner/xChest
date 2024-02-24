@@ -7,6 +7,7 @@ from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras import regularizers
 from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, HyperPars
+import time
 
 def split_train_data(dict_folder):
     print("[I] Splitting train data.")
@@ -103,6 +104,8 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
 
 
 def fit_model(model, train_gen, valid_gen, epochs = 10):
+    print("[I] Starting Model Fitting.")
+    start_time = time.time()
     history = model.fit(
         x= train_gen, 
         epochs = epochs, 
@@ -111,5 +114,8 @@ def fit_model(model, train_gen, valid_gen, epochs = 10):
         validation_steps = None, 
         shuffle = False
     )
-
+    stop_time = time.time()
+    print(f'[I] Model Fitting finished in {stop_time-start_time: .2f} Seconds.')
+    print("[I] Done.")
     return history
+
