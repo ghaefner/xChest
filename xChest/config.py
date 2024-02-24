@@ -8,19 +8,6 @@ IMG_SIZE = (244,244)
 IMG_SHAPE = (IMG_SIZE[0], IMG_SIZE[1], 3)
 BATCH_SIZE = 16
 
-# hyper_params = {
-#     'batch_norm_axis': -1,
-#     'batch_norm_momentum': 0.99,
-#     'batch_norm_epsilon': 0.001,
-#     'dense_units': 256,
-#     'kernel_regularizer_l2': 0.016,
-#     'activity_regularizer_l1': 0.006,
-#     'bias_regularizer_l1': 0.006,
-#     'dropout_rate': 0.4,
-#     'dropout_seed': 75,
-#     'learning_rate': 0.0001
-# }
-
 class HyperPars:
     def __init__(self):
         self.BATCH_NORM_AXIS = -1

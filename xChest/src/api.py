@@ -1,6 +1,7 @@
 import os
-from config import PATH_BASE, PATH_SUB
 from pandas import DataFrame, Series, concat
+
+from config import PATH_BASE, PATH_SUB
 
 def list_files(folder_path) -> DataFrame:
     filepaths =[]

@@ -1,11 +1,13 @@
-from config import PATH_SUB, PATH_PLOT_FOLDER
+from numpy import argmax, argmin
+
+import matplotlib.pyplot as plt
 from plotly.express import histogram
 from plotly.offline import offline
 from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
-import matplotlib.pyplot as plt
-from numpy import argmax, argmin
-from sklearn.preprocessing import MinMaxScaler
+
+from config import PATH_SUB, PATH_PLOT_FOLDER
+
 
 def plot_number_of_images(dict_folder, data_type="train"):
     if data_type not in [subfolder.rstrip("/") for subfolder in PATH_SUB]:

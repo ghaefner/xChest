@@ -1,17 +1,18 @@
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import os
+from datetime import datetime
+import time
+
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras import regularizers
+from pickle import dump as pkl_dump, load as pkl_load
+
 from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
-import time
-from pickle import dump as pkl_dump
-from pickle import load as pkl_load
-from datetime import datetime
-import os
+
 
 def split_train_data(dict_folder):
     """
