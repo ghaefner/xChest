@@ -1,3 +1,5 @@
+import itertools
+
 from numpy import argmax, argmin
 
 import matplotlib.pyplot as plt
@@ -115,5 +117,25 @@ def plot_model_accuracy(train_loss, train_acc, val_loss, val_acc):
     axes[1].legend()
 
     plt.tight_layout()
+
+    return fig
+
+def plot_confusion_matrix(cm, classes):
+    fig = plt.figure(figsize=(10, 10))
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.title('Confusion Matrix')
+    plt.colorbar()
+
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, cm[i, j], horizontalalignment='center', color='white' if cm[i, j] > thresh else 'black')
+
+    plt.tight_layout()
+    plt.ylabel('True Label')
+    plt.xlabel('Predicted Label')
 
     return fig
