@@ -6,8 +6,10 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras import regularizers
-from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, HyperPars
+from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
 import time
+from pickle import dump as pkl_dump
+from pickle import load as pkl_load
 
 def split_train_data(dict_folder):
     print("[I] Splitting train data.")
@@ -119,3 +121,29 @@ def fit_model(model, train_gen, valid_gen, epochs = 10):
     print("[I] Done.")
     return history
 
+def save_history(history, filename="output_model.pkl"):
+    """
+    Save the training history to a file.
+    
+    Parameters:
+        history (History object): The training history returned by the fit method.
+        filename (str): The name of the file to save the history to.
+    """
+    filename = PATH_MODEL_FOLDER+filename
+    with open(filename, 'wb') as file:
+        pkl_dump(history.history, file)
+
+def load_history(filename):
+    """
+    Load the training history from a file.
+    
+    Parameters:
+        filename (str): The name of the file containing the saved history.
+    
+    Returns:
+        dict: The loaded training history.
+    """
+    filename = PATH_MODEL_FOLDER+filename
+    with open(filename, 'rb') as file:
+        history = pkl_load(file)
+    return history
