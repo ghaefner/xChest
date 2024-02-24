@@ -62,7 +62,7 @@ xChest/
 |   |-- plot.py
 |-- config
 |-- main.py
-
+```
 
 ### Running the Model
 
