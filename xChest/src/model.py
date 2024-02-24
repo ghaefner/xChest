@@ -12,6 +12,15 @@ from pickle import dump as pkl_dump
 from pickle import load as pkl_load
 
 def split_train_data(dict_folder):
+    """
+    Splits the training data into train, test, and validation sets.
+
+    Parameters:
+        dict_folder (dict): A dictionary containing the data to be split, with keys 'train'.
+
+    Returns:
+        tuple: A tuple containing three DataFrames representing train, test, and validation sets, respectively.
+    """
     print("[I] Splitting train data.")
 
     train_df, dummy_df = train_test_split(dict_folder['train'], train_size=0.8, shuffle= True, random_state= 42)
@@ -21,7 +30,18 @@ def split_train_data(dict_folder):
     return train_df, test_df, valid_df
 
 def generate_images(train_df, test_df, valid_df):
-    print("[I] Generating images fom file list.")
+    """
+    Generates image data generators for training, testing, and validation from the provided dataframes.
+
+    Parameters:
+        train_df (DataFrame): DataFrame containing training data.
+        test_df (DataFrame): DataFrame containing testing data.
+        valid_df (DataFrame): DataFrame containing validation data.
+
+    Returns:
+        tuple: A tuple containing three ImageDataGenerator objects for training, testing, and validation, respectively.
+    """
+    print("[I] Generating images from file list.")
 
     def scalar(img):
         return img
@@ -68,6 +88,16 @@ def generate_images(train_df, test_df, valid_df):
 
 
 def initialize_model(train_gen, hyper_params=HyperPars()):
+    """
+    Initializes and compiles a Keras model for image classification.
+
+    Parameters:
+        train_gen (DirectoryIterator): Generator for training data.
+        hyper_params (HyperPars, optional): Object containing hyperparameters (default is HyperPars()).
+
+    Returns:
+        tf.keras.Model: Compiled Keras model for image classification.
+    """
     print("[I] Initializing Model.")
     hyper_params.print_info()
 
@@ -106,6 +136,18 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
 
 
 def fit_model(model, train_gen, valid_gen, epochs = 10):
+    """
+    Fits the specified model using the provided generators for training and validation.
+
+    Parameters:
+        model (tf.keras.Model): The Keras model to fit.
+        train_gen (DirectoryIterator): The generator for training data.
+        valid_gen (DirectoryIterator): The generator for validation data.
+        epochs (int): The number of epochs to train the model (default is 10).
+
+    Returns:
+        History object: The training history.
+    """
     print("[I] Starting Model Fitting.")
     start_time = time.time()
     history = model.fit(
