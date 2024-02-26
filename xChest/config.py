@@ -1,4 +1,3 @@
-
 class Path:
     BASE = "D:/Download/chest_xray/"
     PLOTS = "xChest/plots/"
