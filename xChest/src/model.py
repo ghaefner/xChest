@@ -13,7 +13,7 @@ from tensorflow.keras import regularizers
 from pickle import dump as pkl_dump, load as pkl_load
 from numpy import argmax
 
-from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, PATH_MODEL_FOLDER, HyperPars
+from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars
 
 
 def split_train_data(dict_folder):
@@ -173,7 +173,7 @@ def save_history(history, filename="output_model.pkl"):
         history (History object): The training history returned by the fit method.
         filename (str): The name of the file to save the history to.
     """
-    filename = PATH_MODEL_FOLDER+filename
+    filename = Path.MODELS+filename
     with open(filename, 'wb') as file:
         pkl_dump(history.history, file)
 
@@ -187,7 +187,7 @@ def load_history(filename):
     Returns:
         dict: The loaded training history.
     """
-    filename = PATH_MODEL_FOLDER+filename
+    filename = Path.MODELS+filename
     with open(filename, 'rb') as file:
         history = pkl_load(file)
     return history
@@ -279,7 +279,7 @@ class TaskModel:
         current_date = datetime.now().strftime('%Y%m%d')
         model_output_name = "V"+str(current_date)+"_Model.pkl"
 
-        if os.path.exists(os.path.join(PATH_MODEL_FOLDER, model_output_name)):
+        if os.path.exists(os.path.join(Path.MODELS, model_output_name)):
             print(f'[I] Model {model_output_name} already exists.')
             print("[I] Loading Model History.")
             load_history(model_output_name)
