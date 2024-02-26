@@ -8,11 +8,11 @@ from plotly.offline import offline
 from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
 
-from config import PATH_SUB, PATH_PLOT_FOLDER
+from config import Path
 
 
 def plot_number_of_images(dict_folder, data_type="train"):
-    if data_type not in [subfolder.rstrip("/") for subfolder in PATH_SUB]:
+    if data_type not in [subfolder.rstrip("/") for subfolder in Path.SUBFOLDERS]:
         print("[E]: Entered Data Type is not valid. Please use 'train', 'test' or 'val'.")
         return None
 
@@ -32,8 +32,8 @@ def save_plot(obj, output_path="Output.png"):
     if isinstance(obj, plt.Figure):
         # Check for file format
         if output_path.lower().endswith(('.jpg', '.png', '.jpeg')):    
-            print(f"[I] Saving plot to {PATH_PLOT_FOLDER+output_path}.")
-            obj.savefig(PATH_PLOT_FOLDER+output_path, bbox_inches='tight')
+            print(f"[I] Saving plot to {Path.PLOTS+output_path}.")
+            obj.savefig(Path.PLOTS+output_path, bbox_inches='tight')
         else:
             raise ValueError("[E] File ending does not match plotting type. Please use jpg, png or jpeg file format for static figure.")
     
@@ -41,16 +41,16 @@ def save_plot(obj, output_path="Output.png"):
     elif isinstance(obj, FuncAnimation):
         # Check for file format
         if output_path.lower().endswith('.gif'):    
-            print(f"[I] Saving plot to {PATH_PLOT_FOLDER+output_path}.")
-            obj.save(PATH_PLOT_FOLDER+output_path, writer='pillow')
+            print(f"[I] Saving plot to {Path.PLOTS+output_path}.")
+            obj.save(Path.PLOTS+output_path, writer='pillow')
         else:
             raise ValueError("[E] File ending does not match plotting type. Please use gif file format for animation plot.")
         
     # For plotly type
     elif isinstance(obj, Figure):
         if output_path.lower().endswith('.html'):
-            print(f"[I] Saving plot to {PATH_PLOT_FOLDER+output_path}.")
-            offline.plot(obj, filename=PATH_PLOT_FOLDER+output_path, auto_open=False)
+            print(f"[I] Saving plot to {Path.PLOTS+output_path}.")
+            offline.plot(obj, filename=Path.PLOTS+output_path, auto_open=False)
         else:
             raise ValueError("[E] File ending does not match plotting type. Please use html file format for plotly image.")
 
