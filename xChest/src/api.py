@@ -1,7 +1,7 @@
 import os
 from pandas import DataFrame, Series, concat
 
-from config import PATH_BASE, PATH_SUB
+from config import PATH_BASE, PATH_SUB, Path
 
 def list_files(folder_path) -> DataFrame:
     """
@@ -31,7 +31,7 @@ def list_files(folder_path) -> DataFrame:
 
     return df
 
-def list_subfolders(path_base=PATH_BASE, path_sub=PATH_SUB):
+def list_subfolders(path_base=Path.BASE, path_sub=Path.SUBFOLDERS):
     """
     List files in the subfolders of the specified base folder and create a dictionary of DataFrames.
 
