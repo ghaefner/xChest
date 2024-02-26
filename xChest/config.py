@@ -4,6 +4,13 @@ PATH_PLOT_FOLDER = "xChest/plots/"
 PATH_MODEL_FOLDER = "xChest/models/"
 PATH_SUB = ["train/", "test/", "val/"]
 
+class Path:
+    BASE = "D:/Download/chest_xray/"
+    PLOTS = "xChest/plots/"
+    MODELS = "xChest/models/"
+    SUBFOLDERS = ["train/", "test/", "val/"]
+
+
 IMG_SIZE = (244,244)
 IMG_SHAPE = (IMG_SIZE[0], IMG_SIZE[1], 3)
 BATCH_SIZE = 16
