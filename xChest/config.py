@@ -146,4 +146,4 @@ class HyperPars:
 
     @FUNC_LOSS.setter
     def FUNC_LOSS(self, value):
-       
+       self._FUNC_LOSS = value
