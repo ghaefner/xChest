@@ -1,9 +1,4 @@
 
-PATH_BASE = "D:/Download/chest_xray/"
-PATH_PLOT_FOLDER = "xChest/plots/"
-PATH_MODEL_FOLDER = "xChest/models/"
-PATH_SUB = ["train/", "test/", "val/"]
-
 class Path:
     BASE = "D:/Download/chest_xray/"
     PLOTS = "xChest/plots/"
