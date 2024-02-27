@@ -12,7 +12,7 @@ The goal of this project is to develop a model for detecting pneumonia from ches
   - **api.py**: Module for reading and processing data.
   - **model.py**: Responsible for image data preprocessing, model setup, and training.
   - **plot.py**: Contains routines for generating plots for exploratory data analysis.
-- **config**: Configuration and constants file.
+- **config.py**: Configuration and constants file. Includes class for hyper parameters, paths and image files. Change path here to your local folder.
 - **main.py**: Main routine to execute the code.
 
 ## Getting Started
