@@ -266,7 +266,7 @@ def create_confusion_matrix(model, test_gen):
 
     return cm, classes
 
-def run(dict_folder, model_output_name, hyper_params=HyperPars()):
+def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
     df_train, df_test, df_valid = split_train_data(dict_folder)
     train_gen, _, valid_gen = generate_images(df_train, df_test, df_valid)
 
@@ -297,6 +297,9 @@ class TaskModel:
         
         else:
             print(f'[I] Model {model_output_name} does not exist. Running Model.')
+            run_model(dict_folder=self.dict_folder, 
+                      model_output_name=model_output_name, 
+                      hyper_params=HyperPars())
 
         stop_time = time.time()
         print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
