@@ -113,16 +113,16 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
     base_model = tf.keras.applications.efficientnet.EfficientNetB3(include_top=False, weights='imagenet', input_shape=IMG_SHAPE, pooling='max')
     print("[I] Base Model Output Shape:", base_model.output_shape)
 
-    batch_norm = BatchNormalization(axis=hyper_params.BATCH_NORM_AXIS, momentum=hyper_params.BATCH_NORM_MOMENTUM, epsilon=hyper_params.BATCH_NORM_EPSILON)
-    dense_layer = Dense(hyper_params.DENSE_UNITS, 
-                        kernel_regularizer=regularizers.l2(hyper_params.KERNEL_REGULARIZER_L2), 
-                        activity_regularizer=regularizers.l1(hyper_params.ACTIVITY_REGULARIZER_L1),
-                        bias_regularizer=regularizers.l1(hyper_params.BIAS_REGULARIZER_L1), 
-                        activation=hyper_params.FUNC_ACTIVATION_RELU)
-    print("[I] Shape after Dense Layer: (None, " + str(hyper_params.DENSE_UNITS) + ")")
+    batch_norm = BatchNormalization(axis=hyper_params._BATCH_NORM_AXIS, momentum=hyper_params._BATCH_NORM_MOMENTUM, epsilon=hyper_params.BATCH_NORM_EPSILON)
+    dense_layer = Dense(hyper_params._DENSE_UNITS, 
+                        kernel_regularizer=regularizers.l2(hyper_params._KERNEL_REGULARIZER_L2), 
+                        activity_regularizer=regularizers.l1(hyper_params._ACTIVITY_REGULARIZER_L1),
+                        bias_regularizer=regularizers.l1(hyper_params._BIAS_REGULARIZER_L1), 
+                        activation=hyper_params._FUNC_ACTIVATION_RELU)
+    print("[I] Shape after Dense Layer: (None, " + str(hyper_params._DENSE_UNITS) + ")")
 
-    dropout_layer = Dropout(rate=hyper_params.DROPOUT_RATE, seed=hyper_params.DROPOUT_SEED)
-    output_layer = Dense(num_class, activation=hyper_params.FUNC_ACTIVATION_SOFTMAX)
+    dropout_layer = Dropout(rate=hyper_params._DROPOUT_RATE, seed=hyper_params._DROPOUT_SEED)
+    output_layer = Dense(num_class, activation=hyper_params._FUNC_ACTIVATION_SOFTMAX)
 
 
     model = Sequential([
@@ -134,7 +134,7 @@ def initialize_model(train_gen, hyper_params=HyperPars()):
     ])
 
     print("[I] Compiling Model.")
-    model.compile(Adamax(learning_rate=hyper_params.LEARNING_RATE), loss=hyper_params.FUNC_LOSS, metrics=[hyper_params.LOSS_METRIC])
+    model.compile(Adamax(learning_rate=hyper_params._LEARNING_RATE), loss=hyper_params._FUNC_LOSS, metrics=[hyper_params._LOSS_METRIC])
     print("[I] Done.")
 
     return model
