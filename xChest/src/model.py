@@ -267,6 +267,18 @@ def create_confusion_matrix(model, test_gen):
     return cm, classes
 
 def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
+    """
+    Run the model training process using the provided data, hyperparameters, and model name.
+
+    Args:
+        dict_folder (dict): Dictionary containing subfolder names as keys and corresponding DataFrames as values.
+        model_output_name (str): Name of the model output.
+        hyper_params (HyperPars, optional): Object containing hyperparameters for model initialization. 
+            Defaults to HyperPars().
+
+    Returns:
+        dict: History object containing training metrics.
+    """    
     df_train, df_test, df_valid = split_train_data(dict_folder)
     train_gen, _, valid_gen = generate_images(df_train, df_test, df_valid)
 
