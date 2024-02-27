@@ -266,6 +266,17 @@ def create_confusion_matrix(model, test_gen):
 
     return cm, classes
 
+def run(dict_folder, model_output_name, hyper_params=HyperPars()):
+    df_train, df_test, df_valid = split_train_data(dict_folder)
+    train_gen, _, valid_gen = generate_images(df_train, df_test, df_valid)
+
+    model = initialize_model(train_gen=train_gen, hyper_params=hyper_params)
+
+    history = fit_model(model, train_gen=train_gen, valid_gen=valid_gen, epochs=5)
+            
+    print(f'[I] Saving Model History {model_output_name} to Model Folder.')
+    save_history(history=history, name=model_output_name)
+
 
 
 class TaskModel:
@@ -285,16 +296,7 @@ class TaskModel:
             load_history(model_output_name)
         
         else:
-            print(f'[I] Model {model_output_name} does not exist.')
-            df_train, df_test, df_valid = split_train_data(self.dict_folder)
-            train_gen, _, valid_gen = generate_images(df_train, df_test, df_valid)
-
-            model = initialize_model(train_gen=train_gen, hyper_params=hyper_params)
-
-            history = fit_model(model, train_gen=train_gen, valid_gen=valid_gen, epochs=5)
-            
-            print(f'[I] Saving Model History {model_output_name} to Model Folder.')
-            save_history(history=history, name=model_output_name)
+            print(f'[I] Model {model_output_name} does not exist. Running Model.')
 
         stop_time = time.time()
         print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
