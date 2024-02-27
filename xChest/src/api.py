@@ -1,7 +1,7 @@
 import os
 from pandas import DataFrame, Series, concat
 
-from config import PATH_BASE, PATH_SUB, Path
+from config import Path
 
 def list_files(folder_path) -> DataFrame:
     """
