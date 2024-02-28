@@ -311,7 +311,7 @@ class TaskModel:
             print(f'[I] Model {model_output_name} does not exist. Running Model.')
             run_model(dict_folder=self.dict_folder, 
                       model_output_name=model_output_name, 
-                      hyper_params=HyperPars())
+                      hyper_params=hyper_params)
 
         stop_time = time.time()
         print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
