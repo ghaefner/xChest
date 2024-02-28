@@ -26,6 +26,7 @@ class HyperPars:
         self._FUNC_ACTIVATION_SOFTMAX = "softmax"
         self._FUNC_LOSS = "categorical_crossentropy"
         self._LOSS_METRIC = "accuracy"
+        self._EPOCHS = 10
 
     def print_info(self):
         print("[I] Hyperparameters used:")
@@ -147,3 +148,11 @@ class HyperPars:
     @FUNC_LOSS.setter
     def FUNC_LOSS(self, value):
        self._FUNC_LOSS = value
+
+    @property
+    def EPOCHS(self):
+        return self._FUNC_LOSS
+
+    @EPOCHS.setter
+    def EPOCHS(self, value):
+       self._EPOCHS = value
