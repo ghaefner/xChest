@@ -327,7 +327,7 @@ class TaskModel:
         if os.path.exists(os.path.join(Path.MODELS, self.model_output_name)):
             print(f'[I] Evaluating model {self.model_output_name}.')
             history = load_history(self.model_output_name)
-            extract_model_accuracy(history)
+            print_training_accuracy(history)
 
         else:
             print("[E] Model does not exist. Run model first.")
