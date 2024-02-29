@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 import time
 
 import tensorflow as tf
@@ -13,7 +12,7 @@ from tensorflow.keras import regularizers
 from pickle import dump as pkl_dump, load as pkl_load
 from numpy import argmax
 
-from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars
+from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars, CURRENT_DATE
 
 
 def split_train_data(dict_folder):
@@ -294,25 +293,34 @@ def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
 class TaskModel:
     def __init__(self, dict_folder):
         self.dict_folder = dict_folder
+        self.model_output_name = "V"+str(CURRENT_DATE)+"_Model.pkl"
 
     def run(self, hyper_params=HyperPars()):
         start_time = time.time()
         print("[I] Starting Model Training Task.")
 
-        current_date = datetime.now().strftime('%Y%m%d')
-        model_output_name = "V"+str(current_date)+"_Model.pkl"
-
-        if os.path.exists(os.path.join(Path.MODELS, model_output_name)):
-            print(f'[I] Model {model_output_name} already exists.')
+        if os.path.exists(os.path.join(Path.MODELS, self.model_output_name)):
+            print(f'[I] Model {self.model_output_name} already exists.')
             print("[I] Loading Model History.")
-            load_history(model_output_name)
+            load_history(self.model_output_name)
         
         else:
-            print(f'[I] Model {model_output_name} does not exist. Running Model.')
+            print(f'[I] Model {self.model_output_name} does not exist. Running Model.')
             run_model(dict_folder=self.dict_folder, 
-                      model_output_name=model_output_name, 
+                      model_output_name=self.odel_output_name, 
                       hyper_params=hyper_params)
 
         stop_time = time.time()
         print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
+
+    def get_accuracy(self):
+        if os.path.exists(os.path.join(Path.MODELS, self.model_output_name)):
+            print(f'[I] Evaluating model {self.model_output_name}.')
+            history = load_history(self.model_output_name)
+            extract_model_accuracy(history)
+
+        else:
+            print("[E] Model does not exist. Run model first.")
+            
+
 
