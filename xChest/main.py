@@ -9,4 +9,4 @@ task_model = TaskModel(dict_folder=dict_folder)
 
 # Run Model
 task_model.run(hyper_params=HyperPars())
-
+task_model.get_accuracy()
