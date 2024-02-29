@@ -202,13 +202,23 @@ def extract_model_accuracy(history):
         tuple: Training accuracy, loss and validation accuracy, loss.
     """
     
-    train_acc = history.history['accuracy']
-    train_loss = history.history['loss']
+    train_acc = history['accuracy']
+    train_loss = history['loss']
 
-    val_acc = history.history['val_accuracy']
-    val_loss = history.history['val_loss']
+    val_acc = history['val_accuracy']
+    val_loss = history['val_loss']
 
     return train_acc, train_loss, val_acc, val_loss
+
+def print_training_accuracy(history):
+    tr_acc, tr_loss, val_acc, val_loss = extract_model_accuracy(history)
+
+    print("-"*40)
+    print(f'[I] Training accuracy: {tr_acc}.')
+    print(f'[I] Training loss: {tr_loss}.')
+    print(f'[I] Validation accuracy: {val_acc}.')
+    print(f'[I] Training accuracy: {val_loss}.')
+    print("-"*40)
 
 def evaluate_model(model,train_gen, test_gen, valid_gen):
     """
