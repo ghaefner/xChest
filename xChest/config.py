@@ -8,6 +8,7 @@ class Path:
 IMG_SIZE = (244,244)
 IMG_SHAPE = (IMG_SIZE[0], IMG_SIZE[1], 3)
 BATCH_SIZE = 16
+CURRENT_DATE = datetime.now().strftime('%Y%m%d')
 
 
 class HyperPars:
