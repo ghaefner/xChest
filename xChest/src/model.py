@@ -13,6 +13,7 @@ from pickle import dump as pkl_dump, load as pkl_load
 from numpy import argmax
 
 from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars, CURRENT_DATE
+from src.plot import plot_model_accuracy, save_plot
 
 
 def split_train_data(dict_folder):
@@ -328,6 +329,10 @@ class TaskModel:
             print(f'[I] Evaluating model {self.model_output_name}.')
             history = load_history(self.model_output_name)
             print_training_accuracy(history)
+
+            print("[I] Plotting model accuracy.")
+            fig = plot_model_accuracy(*extract_model_accuracy(history=history))
+            save_plot(obj=fig, output_path="Model_Accuracy.png")
 
         else:
             print("[E] Model does not exist. Run model first.")
