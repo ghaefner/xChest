@@ -287,7 +287,7 @@ def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
     history = fit_model(model, train_gen=train_gen, valid_gen=valid_gen, epochs=hyper_params._EPOCHS)
             
     print(f'[I] Saving Model History {model_output_name} to Model Folder.')
-    save_history(history=history, name=model_output_name)
+    save_history(history=history, filename=model_output_name)
 
 
 
