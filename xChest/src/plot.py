@@ -78,7 +78,7 @@ def plot_train_xrays(train_gen):
     return fig
 
 
-def plot_model_accuracy(train_loss, train_acc, val_loss, val_acc):
+def plot_model_accuracy(train_loss, train_acc, val_acc, val_loss):
 
     val_lowest = val_loss[argmax(val_loss)]
     val_highest = val_acc[argmax(val_acc)]
