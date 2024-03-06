@@ -3,8 +3,7 @@ from src.model import TaskModel
 from config import HyperPars
 
 # Initialize Paramters
-dict_folder = list_subfolders()
-task_model = TaskModel(dict_folder=dict_folder)
+task_model = TaskModel()
 
 
 # Run Model

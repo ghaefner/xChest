@@ -14,6 +14,7 @@ from numpy import argmax
 
 from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars, CURRENT_DATE
 from src.plot import plot_model_accuracy, save_plot
+from src.api import list_subfolders
 
 
 def split_train_data(dict_folder):
@@ -304,14 +305,14 @@ def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
 class TaskModel:
     """A class representing a task for model training and evaluation."""
 
-    def __init__(self, dict_folder):
+    def __init__(self):
         """
         Initialize the TaskModel instance.
 
         Args:
             dict_folder (str): Path to the folder containing data for model training.
         """
-        self.dict_folder = dict_folder
+        self.dict_folder = list_subfolders()
         self.model_output_name = "V"+str(CURRENT_DATE)+"_Model.pkl"
 
     def run(self, hyper_params=HyperPars()):
