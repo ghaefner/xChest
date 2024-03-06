@@ -12,9 +12,9 @@ from tensorflow.keras import regularizers
 from pickle import dump as pkl_dump, load as pkl_load
 from numpy import argmax
 
-from config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars, CURRENT_DATE
-from src.plot import plot_model_accuracy, save_plot
-from src.api import list_subfolders
+from xChest.config import BATCH_SIZE, IMG_SIZE, IMG_SHAPE, Path, HyperPars, CURRENT_DATE
+from xChest.src.plot import plot_model_accuracy, save_plot
+from xChest.src.api import list_subfolders
 
 
 def split_train_data(dict_folder):

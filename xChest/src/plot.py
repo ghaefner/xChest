@@ -8,7 +8,7 @@ from plotly.offline import offline
 from plotly.graph_objs import Figure
 from matplotlib.animation import FuncAnimation
 
-from config import Path
+from xChest.config import Path
 
 
 def plot_number_of_images(dict_folder, data_type="train"):

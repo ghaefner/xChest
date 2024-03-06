@@ -1,7 +1,7 @@
 import os
 from pandas import DataFrame, Series, concat
 
-from config import Path
+from xChest.config import Path
 
 def list_files(folder_path) -> DataFrame:
     """

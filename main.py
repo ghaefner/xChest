@@ -1,6 +1,6 @@
-from src.api import list_subfolders
-from src.model import TaskModel
-from config import HyperPars
+from xChest.src.api import list_subfolders
+from xChest.src.model import TaskModel
+from xChest.config import HyperPars
 
 # Initialize Paramters
 task_model = TaskModel()
