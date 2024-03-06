@@ -302,11 +302,26 @@ def run_model(dict_folder, model_output_name, hyper_params=HyperPars()):
 
 
 class TaskModel:
+    """A class representing a task for model training and evaluation."""
+
     def __init__(self, dict_folder):
+        """
+        Initialize the TaskModel instance.
+
+        Args:
+            dict_folder (str): Path to the folder containing data for model training.
+        """
         self.dict_folder = dict_folder
         self.model_output_name = "V"+str(CURRENT_DATE)+"_Model.pkl"
 
     def run(self, hyper_params=HyperPars()):
+        """
+        Run the model training task.
+
+        Args:
+            hyper_params (HyperPars, optional): Hyperparameters for model training. 
+                Defaults to HyperPars().
+        """
         start_time = time.time()
         print("[I] Starting Model Training Task.")
 
@@ -318,13 +333,19 @@ class TaskModel:
         else:
             print(f'[I] Model {self.model_output_name} does not exist. Running Model.')
             run_model(dict_folder=self.dict_folder, 
-                      model_output_name=self.odel_output_name, 
+                      model_output_name=self.model_output_name, 
                       hyper_params=hyper_params)
 
         stop_time = time.time()
         print(f'[I] Task finished in {stop_time-start_time: .3f} Seconds.')
 
     def get_accuracy(self):
+        """
+        Evaluate the model accuracy and plot the results.
+
+        Raises:
+            ValueError: If the model file does not exist.
+        """
         if os.path.exists(os.path.join(Path.MODELS, self.model_output_name)):
             print(f'[I] Evaluating model {self.model_output_name}.')
             history = load_history(self.model_output_name)
@@ -335,7 +356,4 @@ class TaskModel:
             save_plot(obj=fig, output_path="Model_Accuracy.png")
 
         else:
-            print("[E] Model does not exist. Run model first.")
-            
-
-
+            raise ValueError("[E] Model does not exist. Run model first.")
