@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 
 class Path:
     BASE = "D:/Download/chest_xray/"
@@ -32,21 +33,21 @@ class HyperPars:
         self._EPOCHS = 10
 
     def print_info(self):
-        print("[I] Hyperparameters used:")
-        print("[I] BATCH_NORM_AXIS:", self._BATCH_NORM_AXIS)
-        print("[I] BATCH_NORM_MOMENTUM:", self._BATCH_NORM_MOMENTUM)
-        print("[I] BATCH_NORM_EPSILON:", self._BATCH_NORM_EPSILON)
-        print("[I] DENSE_UNITS:", self._DENSE_UNITS)
-        print("[I] KERNEL_REGULARIZER_L2:", self._KERNEL_REGULARIZER_L2)
-        print("[I] ACTIVITY_REGULARIZER_L1:", self._ACTIVITY_REGULARIZER_L1)
-        print("[I] BIAS_REGULARIZER_L1:", self._BIAS_REGULARIZER_L1)
-        print("[I] DROPOUT_RATE:", self._DROPOUT_RATE)
-        print("[I] DROPOUT_SEED:", self._DROPOUT_SEED)
-        print("[I] LEARNING_RATE:", self._LEARNING_RATE)
-        print("[I] FUNC_ACTIVATION_RELU:", self._FUNC_ACTIVATION_RELU)
-        print("[I] FUNC_ACTIVATION_SOFTMAX:", self._FUNC_ACTIVATION_SOFTMAX)
-        print("[I] FUNC_LOSS:", self._FUNC_LOSS)
-        print("[I] LOSS_METRIC:", self._LOSS_METRIC)
+        logging.info("Hyperparameters used:")
+        logging.info("BATCH_NORM_AXIS: %s", self._BATCH_NORM_AXIS)
+        logging.info("BATCH_NORM_MOMENTUM: %s", self._BATCH_NORM_MOMENTUM)
+        logging.info("BATCH_NORM_EPSILON: %s", self._BATCH_NORM_EPSILON)
+        logging.info("DENSE_UNITS: %s", self._DENSE_UNITS)
+        logging.info("KERNEL_REGULARIZER_L2: %s", self._KERNEL_REGULARIZER_L2)
+        logging.info("ACTIVITY_REGULARIZER_L1: %s", self._ACTIVITY_REGULARIZER_L1)
+        logging.info("BIAS_REGULARIZER_L1: %s", self._BIAS_REGULARIZER_L1)
+        logging.info("DROPOUT_RATE: %s", self._DROPOUT_RATE)
+        logging.info("DROPOUT_SEED: %s", self._DROPOUT_SEED)
+        logging.info("LEARNING_RATE: %s", self._LEARNING_RATE)
+        logging.info("FUNC_ACTIVATION_RELU: %s", self._FUNC_ACTIVATION_RELU)
+        logging.info("FUNC_ACTIVATION_SOFTMAX: %s", self._FUNC_ACTIVATION_SOFTMAX)
+        logging.info("FUNC_LOSS: %s", self._FUNC_LOSS)
+        logging.info("LOSS_METRIC: %s", self._LOSS_METRIC)
 
     @property
     def BATCH_NORM_AXIS(self):
