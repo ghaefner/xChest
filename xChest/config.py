@@ -2,7 +2,7 @@ from datetime import datetime
 import logging
 
 class Path:
-    BASE = "D:/Download/chest_xray/"
+    BASE = "D:/Projekte/chest_xray/"
     PLOTS = "xChest/plots/"
     MODELS = "xChest/models/"
     SUBFOLDERS = ["train/", "test/", "val/"]
